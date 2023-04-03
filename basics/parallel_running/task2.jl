@@ -1,11 +1,17 @@
-acc = Ref(0)
-Threads.@threads for i in 1:1000
-    acc[] += 1
-end
-println(acc[]) # result is constant if you get only 1 thread
-
 #= 
 reopen Julia compiler with Threads = 4
-result is always unpredictable in 1:1000
-you got race condition during writing to acc variable
+result is always unpredictable
+N threads = 4
 =#
+
+for i = 1:5
+    println(@isdefined a)
+    if @isdefined a
+        print(a)
+    end
+    a = i
+    println(a)
+end
+
+println("N threads = $(Threads.nthreads())")
+# output: N threads = 4
